@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <title>VENTURERS 2026 — PVG's COET&M EDC</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -23,7 +23,7 @@ html{scroll-behavior:smooth;font-size:16px}
   --muted:rgba(242,237,227,0.45);
   --grey:#5a5a72;
 }
-body{background:var(--ink);color:var(--cream);font-family:'Manrope',sans-serif;overflow-x:hidden;cursor:none}
+body{background:var(--ink);color:var(--cream);font-family:'Manrope',sans-serif;overflow-x:hidden;cursor:none;-webkit-tap-highlight-color:rgba(232,184,75,.12)}
 
 /* CURSOR */
 .cur{width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .15s,width .2s,height .2s;mix-blend-mode:difference}
@@ -65,6 +65,7 @@ nav.scrolled{padding:14px 60px;background:rgba(5,5,10,.92);backdrop-filter:blur(
 .hero-particles{position:absolute;inset:0;pointer-events:none}
 .hero-particles span{position:absolute;border-radius:50%;background:var(--gold);animation:float-p 8s ease-in-out infinite}
 @keyframes float-p{0%,100%{transform:translateY(0) scale(1);opacity:.6}50%{transform:translateY(-30px) scale(1.2);opacity:.2}}
+.stars-hero-canvas{position:absolute;inset:0;z-index:1;width:100%;height:100%;pointer-events:none;opacity:.85}
 .hero-content{position:relative;z-index:2}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:'Space Mono';font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(232,184,75,.25);padding:7px 20px;border-radius:100px;margin-bottom:44px;animation:fadeUp .8s ease both}
 .hero-eyebrow .dot{width:5px;height:5px;background:var(--gold);border-radius:50%;animation:blink 1.4s ease-in-out infinite}
@@ -93,8 +94,8 @@ nav.scrolled{padding:14px 60px;background:rgba(5,5,10,.92);backdrop-filter:blur(
 .cd-label{font-family:'Space Mono';font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--grey)}
 .cd-sep{font-family:'Bebas Neue';font-size:36px;color:rgba(232,184,75,.3);line-height:1.1;align-self:center}
 
-/* TICKER */
-.ticker{overflow:hidden;background:var(--gold);padding:12px 0;white-space:nowrap}
+/* TICKER — gold text bar (above About) */
+.ticker{overflow:hidden;background:var(--gold);padding:12px 0;white-space:nowrap;touch-action:pan-y}
 .ticker-inner{display:inline-block;animation:tick 32s linear infinite}
 .ticker-inner span{font-family:'Bebas Neue';font-size:15px;letter-spacing:4px;color:var(--ink);padding:0 40px}
 .ticker-inner .sep{opacity:.4}
@@ -169,22 +170,112 @@ section{padding:130px 24px;position:relative;overflow:hidden}
 .t-title{font-family:'Playfair Display';font-size:20px;font-weight:700;color:var(--cream);margin-bottom:6px}
 .t-desc{font-size:13px;color:var(--muted);line-height:1.75}
 
-/* GALLERY STRIP */
-.gallery-strip{overflow:hidden;background:var(--surface);padding:60px 0}
-.gallery-inner{display:flex;gap:16px;animation:slide-g 30s linear infinite;width:max-content}
-.gallery-inner img,.gallery-placeholder{height:200px;width:300px;object-fit:cover;border-radius:4px;border:1px solid rgba(232,184,75,.08);flex-shrink:0}
-.gallery-placeholder{background:var(--card);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:24px;letter-spacing:3px;color:rgba(232,184,75,.15)}
+/* EVENT MARQUEE — below Speakers & Judges (photo / logo cards + names, same slide animation) */
+.gallery-strip{overflow:hidden;background:var(--surface);padding:56px 0;touch-action:pan-y}
+.gallery-inner{display:inline-flex;animation:slide-g 32s linear infinite;width:max-content;will-change:transform}
+.gallery-inner:hover{animation-play-state:paused}
+.gallery-seq{display:flex;align-items:stretch;gap:18px;flex-shrink:0;padding:0 9px}
+.gallery-event-card{
+  flex-shrink:0;width:280px;background:var(--card);border:1px solid rgba(232,184,75,.12);
+  border-radius:8px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.35);
+}
+.gallery-event-media{height:200px;position:relative;background:var(--ink);overflow:hidden}
+.gallery-event-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.gallery-event-fallback{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:0;
+  font-family:'Bebas Neue';font-size:clamp(28px,7vw,44px);letter-spacing:2px;color:var(--gold);
+  background:linear-gradient(145deg,#12121f 0%,#05050a 100%);
+}
+.gallery-event-label{
+  padding:16px 14px;font-family:'Bebas Neue';font-size:15px;letter-spacing:3px;color:var(--cream);
+  text-align:center;text-transform:uppercase;border-top:1px solid rgba(232,184,75,.08);line-height:1.25;
+}
 @keyframes slide-g{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* SPONSORS */
-.sponsors-section{background:var(--ink);padding:80px 24px;text-align:center;border-top:1px solid rgba(232,184,75,.06);border-bottom:1px solid rgba(232,184,75,.06)}
-.sponsors-label{font-family:'Space Mono';font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--grey);margin-bottom:36px}
-.sponsors-row{display:flex;gap:48px;justify-content:center;flex-wrap:wrap;align-items:center}
-.sponsor-slot{width:120px;height:48px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:13px;letter-spacing:2px;color:rgba(90,90,114,.4);transition:all .3s}
-.sponsor-slot:hover{border-color:rgba(232,184,75,.2);color:rgba(232,184,75,.4)}
+/* SPEAKERS & ANIMATED TABS + GRADIENT BORDER CARDS */
+#speakers{background:var(--ink);padding:130px 24px;position:relative;overflow:hidden}
+.speakers-inner{max-width:1120px;margin:0 auto;position:relative;z-index:2}
+.gradient-title-anim{
+  background:linear-gradient(105deg,var(--cream) 0%,var(--gold2) 22%,var(--gold) 45%,var(--gold2) 68%,var(--cream) 100%);
+  background-size:220% auto;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:gradTitleShift 7s ease-in-out infinite alternate;
+}
+@keyframes gradTitleShift{0%{background-position:0% 50%}100%{background-position:100% 50%}}
+.sp-tabs-wrap{display:flex;justify-content:center;margin-bottom:40px}
+.sp-tabs{display:inline-flex;gap:0;border:1px solid rgba(232,184,75,.2);border-radius:6px;overflow:hidden;background:rgba(0,0,0,.25)}
+.sp-tab{flex:1;padding:14px 28px;background:transparent;border:none;font-family:'Space Mono';font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--grey);cursor:pointer;transition:color .35s ease,background .35s ease,transform .35s ease;border-right:1px solid rgba(232,184,75,.12)}
+.sp-tab:last-child{border-right:none}
+.sp-tab:hover{color:var(--gold2)}
+.sp-tab.active{background:linear-gradient(135deg,rgba(232,184,75,.18),rgba(232,184,75,.06));color:var(--gold);box-shadow:inset 0 0 0 1px rgba(232,184,75,.25)}
+.sp-panels-stack{position:relative;min-height:300px}
+.sp-panel{position:absolute;left:0;right:0;top:0;opacity:0;transform:translateY(20px);pointer-events:none;transition:opacity .5s cubic-bezier(.4,0,.2,1),transform .5s cubic-bezier(.4,0,.2,1)}
+.sp-panel.active{position:relative;opacity:1;transform:translateY(0);pointer-events:auto}
+.sp-cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:900px){.sp-cards-grid{grid-template-columns:1fr}}
+.g-border-wrap{position:relative;border-radius:14px;padding:2px;overflow:hidden;background:var(--card)}
+.g-border-wrap::before{
+  content:'';
+  position:absolute;inset:-50%;
+  background:conic-gradient(from 0deg,var(--gold),var(--gold2),rgba(232,184,75,.15),var(--gold2),var(--gold));
+  animation:gBorderSpin 6s linear infinite;
+  z-index:0;
+}
+@keyframes gBorderSpin{to{transform:rotate(360deg)}}
+.g-border-inner{
+  position:relative;z-index:1;
+  background:var(--card);
+  border-radius:12px;
+  padding:36px 28px 32px;
+  text-align:center;
+  border:1px solid rgba(232,184,75,.08);
+  height:100%;
+}
+.sp-avatar{width:72px;height:72px;border-radius:50%;background:var(--gold);color:var(--ink);font-family:'Bebas Neue';font-size:32px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+.sp-card-title{font-family:'Manrope';font-weight:700;font-size:17px;color:var(--cream);margin-bottom:8px}
+.sp-card-sub{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px}
+.sp-card-tba{font-family:'Space Mono';font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--grey)}
+
+/* SPONSORS MARQUEE */
+#sponsors-partners{background:var(--ink);padding:72px 0 80px;border-top:1px solid rgba(232,184,75,.06);border-bottom:1px solid rgba(232,184,75,.06);position:relative;overflow:hidden}
+.sponsors-head{text-align:center;padding:0 24px 40px}
+.sponsors-marquee-mask{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.sponsors-marquee-track{display:inline-flex;align-items:center;width:max-content;animation:sponsorMarquee 45s linear infinite;will-change:transform}
+.sponsors-marquee-track:hover{animation-play-state:paused}
+.sponsor-marquee-seq{display:inline-flex;align-items:center;gap:56px;flex-shrink:0;padding:0 12px}
+@keyframes sponsorMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.sponsor-marquee-slot{
+  flex-shrink:0;width:176px;height:76px;padding:12px 16px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color .3s,transform .3s,box-shadow .3s;
+}
+.sponsor-marquee-slot:hover{border-color:rgba(232,184,75,.35);transform:scale(1.04);box-shadow:0 8px 28px rgba(0,0,0,.25)}
+.sponsor-logo-inner{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;min-height:48px}
+.sponsor-marquee-slot img{max-width:100%;max-height:52px;width:auto;height:auto;object-fit:contain;display:block}
+.sponsor-marquee-slot img.is-hidden{display:none!important}
+.sponsor-logo-fallback{
+  display:none;font-family:'Space Mono';font-size:8px;letter-spacing:1.2px;text-transform:uppercase;color:rgba(90,90,114,.55);
+  text-align:center;line-height:1.35;max-width:100%;
+}
+.sponsor-logo-fallback.is-visible{display:block}
+
+/* REGISTER — PAYMENT QR */
+.reg-payment-block{margin-top:32px;padding-top:28px;border-top:1px solid rgba(232,184,75,.1);display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center}
+@media(max-width:700px){.reg-payment-block{grid-template-columns:1fr;text-align:center;justify-items:center}}
+.reg-payment-copy{text-align:left}
+@media(max-width:700px){.reg-payment-copy{text-align:center}}
+.reg-payment-label{font-family:'Space Mono';font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.reg-payment-desc{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:8px}
+.reg-payment-upi{font-family:'Space Mono';font-size:11px;color:var(--cream);word-break:break-all}
+.reg-qr-box{background:var(--cream);padding:12px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center}
+.reg-qr-box canvas,.reg-qr-box img{display:block}
 
 /* FAQ */
 #faq{background:var(--deep);padding:100px 24px}
+.faq-grid{display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:start}
 .faq-list{max-width:720px}
 .faq-item{border-bottom:1px solid rgba(232,184,75,.08);overflow:hidden}
 .faq-q{display:flex;justify-content:space-between;align-items:center;padding:22px 0;cursor:pointer;font-size:15px;color:var(--cream);font-weight:500;gap:20px}
@@ -192,7 +283,7 @@ section{padding:130px 24px;position:relative;overflow:hidden}
 .faq-icon{flex-shrink:0;width:20px;height:20px;border:1px solid rgba(232,184,75,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--gold);transition:transform .3s}
 .faq-item.open .faq-icon{transform:rotate(45deg)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s}
-.faq-item.open .faq-a{max-height:200px;padding-bottom:20px}
+.faq-item.open .faq-a{max-height:min(70vh,520px);padding-bottom:20px}
 .faq-a p{color:var(--muted);font-size:14px;line-height:1.8}
 
 /* REGISTER */
@@ -300,7 +391,7 @@ footer{background:var(--deep);border-top:1px solid rgba(232,184,75,.08);padding:
 .toast .toast-icon{color:var(--gold);margin-right:8px}
 
 /* MOBILE NAV */
-.mob-nav{position:fixed;inset:0;background:rgba(5,5,10,.98);z-index:700;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:36px;transform:translateX(100%);transition:transform .38s cubic-bezier(.4,0,.2,1)}
+.mob-nav{position:fixed;inset:0;background:rgba(5,5,10,.98);z-index:700;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(24px,6vh,36px);transform:translateX(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);overflow-y:auto;-webkit-overflow-scrolling:touch;padding:max(32px,env(safe-area-inset-top)) 24px max(32px,env(safe-area-inset-bottom))}
 .mob-nav.on{transform:translateX(0)}
 .mob-nav a{font-family:'Bebas Neue';font-size:48px;letter-spacing:5px;color:var(--cream);text-decoration:none;transition:color .2s}
 .mob-nav a:hover{color:var(--gold)}
@@ -327,23 +418,86 @@ footer{background:var(--deep);border-top:1px solid rgba(232,184,75,.08);padding:
 .btt svg{width:18px;height:18px;fill:var(--ink)}
 
 /* RESPONSIVE */
+@media(max-width:1200px){
+  .nav-links{gap:18px}
+  .nav-links a{font-size:10px;letter-spacing:1.2px}
+}
+@media(max-width:640px){
+  .sp-tabs{flex-direction:column;width:100%;max-width:100%}
+  .sp-tab{border-right:none;border-bottom:1px solid rgba(232,184,75,.12)}
+  .sp-tab:last-child{border-bottom:none}
+}
 @media(max-width:900px){
-  nav{padding:18px 28px}
-  nav.scrolled{padding:12px 28px}
+  nav{padding:14px max(16px,env(safe-area-inset-right)) 14px max(16px,env(safe-area-inset-left))}
+  nav.scrolled{padding:10px max(16px,env(safe-area-inset-right)) 10px max(16px,env(safe-area-inset-left))}
+  .nav-brand{gap:10px}
+  .nav-brand-mark{width:42px;height:42px}
+  .nav-brand-text .t1{font-size:11px;letter-spacing:2px}
+  .nav-brand-text .t2{font-size:7px;letter-spacing:1px}
   .nav-links,.nav-register{display:none}
-  .ham{display:flex}
+  .ham{display:flex;min-width:44px;min-height:44px;align-items:center;justify-content:center;padding:8px}
   body{cursor:auto}
   .cur,.cur-r{display:none}
-  .about-inner{grid-template-columns:1fr}
-  .about-left,.about-right{padding:70px 28px}
+  .about-inner{grid-template-columns:1fr;min-height:0}
+  .about-left,.about-right{padding:56px max(20px,env(safe-area-inset-left)) 56px max(20px,env(safe-area-inset-right))}
   .about-left::after{display:none}
-  .sched-grid{grid-template-columns:1fr}
+  .sched-grid{grid-template-columns:1fr;gap:48px}
   .sched-sticky{position:static}
-  .reg-wrap{padding:44px 28px}
+  .reg-wrap{padding:44px max(20px,env(safe-area-inset-left)) 44px max(20px,env(safe-area-inset-right))}
   .form-row,.m-form-row{grid-template-columns:1fr}
-  section{padding:90px 20px}
-  .cart-drawer{width:100%}
-  .modal-panel{padding:36px 24px}
+  section{padding:72px max(16px,env(safe-area-inset-left)) 72px max(16px,env(safe-area-inset-right))}
+  #speakers{padding:72px max(16px,env(safe-area-inset-left)) 72px max(16px,env(safe-area-inset-right))}
+  #sponsors-partners{padding-left:0;padding-right:0}
+  #faq{padding:72px max(16px,env(safe-area-inset-left)) 72px max(16px,env(safe-area-inset-right))}
+  .faq-grid{grid-template-columns:1fr;gap:40px}
+  .ev-card{padding:32px 22px 36px}
+  .ev-num{font-size:52px;top:12px;right:18px}
+  .filter-btn{min-height:44px;padding:10px 18px}
+  .day-tabs{max-width:100%}
+  .day-tab{min-height:44px;padding:12px 14px;font-size:10px}
+  .cart-drawer{width:100%;max-width:100%;padding:max(28px,env(safe-area-inset-top)) max(20px,env(safe-area-inset-right)) 28px max(20px,env(safe-area-inset-left))}
+  .modal-panel{padding:40px max(20px,env(safe-area-inset-left)) 36px max(20px,env(safe-area-inset-right))}
+  .cart-btn-label{display:none}
+  .cart-btn{min-height:44px;min-width:44px;padding:10px 12px}
+  .inp,.m-inp{font-size:16px}
+  .gallery-strip{padding:44px 0}
+  .gallery-event-card{width:min(72vw,260px)}
+  .gallery-event-media{height:min(44vw,180px)}
+  .gallery-event-label{font-size:13px;letter-spacing:2px;padding:12px}
+  .gallery-seq{gap:14px}
+  .stat-card{flex-direction:column;align-items:flex-start;text-align:left;gap:12px}
+  .stat-num{min-width:auto;font-size:46px}
+  .btt{bottom:max(20px,env(safe-area-inset-bottom));right:max(16px,env(safe-area-inset-right))}
+  .hero{min-height:100svh;height:auto;padding:max(100px,env(safe-area-inset-top) + 72px) 16px max(100px,env(safe-area-inset-bottom) + 48px)}
+  .hero-content{width:100%;max-width:100%;padding:0 8px}
+  .hero-eyebrow{margin-bottom:28px;padding:6px 16px;font-size:9px;margin-left:8px;margin-right:8px}
+  .hero-title{letter-spacing:clamp(2px,1.2vw,8px);font-size:clamp(52px,14vw,200px)}
+  .hero-dates{font-size:11px;letter-spacing:2px;padding:0 10px;line-height:1.5}
+  .hero-subtitle{letter-spacing:2px;padding:0 8px;font-size:clamp(13px,3.8vw,20px)}
+  .countdown-bar{gap:14px 10px;margin-top:32px}
+  .cd-num{font-size:clamp(28px,8vw,42px)}
+  .cd-sep{font-size:clamp(22px,6vw,36px)}
+  .cd-label{font-size:7px}
+  .hero-btns{flex-direction:column;width:100%;max-width:320px;margin-left:auto;margin-right:auto;margin-top:36px;gap:10px;padding:0 4px}
+  .btn-g,.btn-o{width:100%;padding:14px 24px}
+  .hero-scroll{bottom:max(16px,env(safe-area-inset-bottom))}
+  .timeline{padding-left:22px}
+  .t-item::before{left:-28px}
+  .toast{max-width:calc(100vw - 32px);white-space:normal;text-align:center;padding:14px 18px}
+  .mob-nav a{font-size:clamp(32px,9vw,48px)}
+}
+@media(max-width:600px){
+  .events-grid{grid-template-columns:1fr;gap:12px}
+}
+@media(max-width:480px){
+  .s-title{font-size:clamp(26px,8vw,52px)}
+  .s-rule{margin-bottom:36px}
+  .ticker-inner span{font-size:13px;padding:0 28px;letter-spacing:3px}
+  .sponsor-marquee-seq{gap:36px;padding:0 8px}
+  .sponsor-marquee-slot{width:min(42vw,150px);height:68px;padding:10px 12px}
+  .sponsor-marquee-slot img{max-height:44px}
+  .g-border-inner{padding:28px 20px 26px}
+  .sp-panels-stack{min-height:260px}
 }
 </style>
 </head>
@@ -377,6 +531,9 @@ footer{background:var(--deep);border-top:1px solid rgba(232,184,75,.08);padding:
   <a href="#about" onclick="toggleNav()">About</a>
   <a href="#events" onclick="toggleNav()">Events</a>
   <a href="#schedule" onclick="toggleNav()">Schedule</a>
+  <a href="#speakers" onclick="toggleNav()">Speakers</a>
+  <a href="#sponsors-partners" onclick="toggleNav()">Partners</a>
+  <a href="#faq" onclick="toggleNav()">FAQ</a>
   <a href="#register" onclick="toggleNav()">Register</a>
 </div>
 
@@ -395,13 +552,15 @@ footer{background:var(--deep);border-top:1px solid rgba(232,184,75,.08);padding:
     <li><a href="#about">About</a></li>
     <li><a href="#events">Events</a></li>
     <li><a href="#schedule">Schedule</a></li>
+    <li><a href="#speakers">Speakers</a></li>
+    <li><a href="#sponsors-partners">Partners</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#register">Register</a></li>
   </ul>
   <div class="nav-right">
-    <button class="cart-btn" onclick="openCart()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-      Cart
+    <button type="button" class="cart-btn" onclick="openCart()" aria-label="Open cart">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <span class="cart-btn-label">Cart</span>
       <span class="cart-count" id="cartCount">0</span>
     </button>
     <button class="nav-register" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Register Now</button>
@@ -412,6 +571,7 @@ footer{background:var(--deep);border-top:1px solid rgba(232,184,75,.08);padding:
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-bg"></div>
+  <canvas class="stars-hero-canvas" id="starsCanvas" aria-hidden="true"></canvas>
   <div class="hero-grid-wrap"><div class="hero-grid" id="hgrid"></div></div>
   <div class="hero-noise"></div>
   <div class="hero-vignette"></div>
@@ -447,12 +607,12 @@ footer{background:var(--deep);border-top:1px solid rgba(232,184,75,.08);padding:
     <span>ZERO TO ONE</span><span class="sep">✦</span><span>CHAI PE CHARCHA</span><span class="sep">✦</span>
     <span>GAME OF BRANDS</span><span class="sep">✦</span><span>CRIC AUCTION</span><span class="sep">✦</span>
     <span>THRONES OF WALL STREET</span><span class="sep">✦</span><span>GUEST SESSION</span><span class="sep">✦</span>
-    <span>13–14 APRIL 2026</span><span class="sep">✦</span><span>EDC · PVG's COET&M</span><span class="sep">✦</span>
+    <span>13–14 APRIL 2026</span><span class="sep">✦</span><span>EDC · PVG's COET&amp;M</span><span class="sep">✦</span>
     <span>VENTURERS 2026</span><span class="sep">✦</span><span>SHARK TANK</span><span class="sep">✦</span>
     <span>ZERO TO ONE</span><span class="sep">✦</span><span>CHAI PE CHARCHA</span><span class="sep">✦</span>
     <span>GAME OF BRANDS</span><span class="sep">✦</span><span>CRIC AUCTION</span><span class="sep">✦</span>
     <span>THRONES OF WALL STREET</span><span class="sep">✦</span><span>GUEST SESSION</span><span class="sep">✦</span>
-    <span>13–14 APRIL 2026</span><span class="sep">✦</span><span>EDC · PVG's COET&M</span><span class="sep">✦</span>
+    <span>13–14 APRIL 2026</span><span class="sep">✦</span><span>EDC · PVG's COET&amp;M</span><span class="sep">✦</span>
   </div>
 </div>
 
@@ -606,25 +766,134 @@ footer{background:var(--deep);border-top:1px solid rgba(232,184,75,.08);padding:
   </div>
 </section>
 
-<!-- GALLERY STRIP -->
-<div class="gallery-strip">
+<!-- SPEAKERS & JUDGES -->
+<section id="speakers">
+  <div class="speakers-inner">
+    <p class="s-label reveal">Voices &amp; Mentors</p>
+    <h2 class="s-title reveal gradient-title-anim" style="transition-delay:.06s">Speakers &amp; judges</h2>
+    <div class="s-rule reveal" style="transition-delay:.1s"></div>
+    <p class="about-desc reveal" style="transition-delay:.14s;max-width:640px">Founders, mentors, and sharp minds — names will be revealed closer to the fest. Stay tuned.</p>
+    <div class="sp-tabs-wrap reveal" style="transition-delay:.18s;margin-top:36px">
+      <div class="sp-tabs" role="tablist" aria-label="Speakers categories">
+        <button type="button" class="sp-tab active" role="tab" aria-selected="true" data-sp="speakers">Speakers</button>
+        <button type="button" class="sp-tab" role="tab" aria-selected="false" data-sp="judges">Judges</button>
+        <button type="button" class="sp-tab" role="tab" aria-selected="false" data-sp="mentors">Mentors</button>
+      </div>
+    </div>
+    <div class="sp-panels-stack reveal" style="transition-delay:.22s;margin-top:8px">
+      <div class="sp-panel active" id="sp-panel-speakers" role="tabpanel" aria-hidden="false">
+        <div class="sp-cards-grid">
+          <div class="g-border-wrap">
+            <div class="g-border-inner">
+              <div class="sp-avatar">F</div>
+              <div class="sp-card-title">Founder Panel</div>
+              <div class="sp-card-sub">Startup founders sharing real journeys and lessons from the field.</div>
+              <div class="sp-card-tba">TBA</div>
+            </div>
+          </div>
+          <div class="g-border-wrap">
+            <div class="g-border-inner">
+              <div class="sp-avatar">K</div>
+              <div class="sp-card-title">Keynote Spotlight</div>
+              <div class="sp-card-sub">One headline session — vision, grit, and what it takes to build.</div>
+              <div class="sp-card-tba">TBA</div>
+            </div>
+          </div>
+          <div class="g-border-wrap">
+            <div class="g-border-inner">
+              <div class="sp-avatar">P</div>
+              <div class="sp-card-title">Pitch &amp; Q&amp;A</div>
+              <div class="sp-card-sub">Live audience Q&amp;A after flagship competitions.</div>
+              <div class="sp-card-tba">TBA</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sp-panel" id="sp-panel-judges" role="tabpanel" aria-hidden="true">
+        <div class="sp-cards-grid">
+          <div class="g-border-wrap">
+            <div class="g-border-inner">
+              <div class="sp-avatar">J</div>
+              <div class="sp-card-title">Shark Tank Panel</div>
+              <div class="sp-card-sub">Evaluating pitches with investor-grade scrutiny.</div>
+              <div class="sp-card-tba">TBA</div>
+            </div>
+          </div>
+          <div class="g-border-wrap">
+            <div class="g-border-inner">
+              <div class="sp-avatar">D</div>
+              <div class="sp-card-title">Demo Day Judges</div>
+              <div class="sp-card-sub">Zero to One finals — product, traction, and storytelling.</div>
+              <div class="sp-card-tba">TBA</div>
+            </div>
+          </div>
+          <div class="g-border-wrap">
+            <div class="g-border-inner">
+              <div class="sp-avatar">S</div>
+              <div class="sp-card-title">Strategy &amp; Finance</div>
+              <div class="sp-card-sub">Wall Street, Cric Auction, and brand-war verdicts.</div>
+              <div class="sp-card-tba">TBA</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sp-panel" id="sp-panel-mentors" role="tabpanel" aria-hidden="true">
+        <div class="sp-cards-grid">
+          <div class="g-border-wrap">
+            <div class="g-border-inner">
+              <div class="sp-avatar">I</div>
+              <div class="sp-card-title">Industry Mentor</div>
+              <div class="sp-card-sub">Product, growth, and GTM — office-hours style guidance.</div>
+              <div class="sp-card-tba">TBA</div>
+            </div>
+          </div>
+          <div class="g-border-wrap">
+            <div class="g-border-inner">
+              <div class="sp-avatar">N</div>
+              <div class="sp-card-title">Networking Mentors</div>
+              <div class="sp-card-sub">Chai Pe Charcha — quick feedback and warm intros.</div>
+              <div class="sp-card-tba">TBA</div>
+            </div>
+          </div>
+          <div class="g-border-wrap">
+            <div class="g-border-inner">
+              <div class="sp-avatar">C</div>
+              <div class="sp-card-title">Investor Connect</div>
+              <div class="sp-card-sub">Pitch feedback and how to speak the language of capital.</div>
+              <div class="sp-card-tba">TBA</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENT MARQUEE (below Speakers) — add images to ./images/events/ -->
+<div class="gallery-strip" aria-label="Event highlights marquee">
   <div class="gallery-inner" id="galleryInner">
-    <div class="gallery-placeholder">VENTURERS</div>
-    <div class="gallery-placeholder">SHARK TANK</div>
-    <div class="gallery-placeholder">ZERO TO ONE</div>
-    <div class="gallery-placeholder">CHAI PE CHARCHA</div>
-    <div class="gallery-placeholder">GAME OF BRANDS</div>
-    <div class="gallery-placeholder">CRIC AUCTION</div>
-    <div class="gallery-placeholder">WALL STREET</div>
-    <div class="gallery-placeholder">EDC 2026</div>
-    <div class="gallery-placeholder">VENTURERS</div>
-    <div class="gallery-placeholder">SHARK TANK</div>
-    <div class="gallery-placeholder">ZERO TO ONE</div>
-    <div class="gallery-placeholder">CHAI PE CHARCHA</div>
-    <div class="gallery-placeholder">GAME OF BRANDS</div>
-    <div class="gallery-placeholder">CRIC AUCTION</div>
-    <div class="gallery-placeholder">WALL STREET</div>
-    <div class="gallery-placeholder">EDC 2026</div>
+    <div class="gallery-seq">
+      <div class="gallery-event-card"><div class="gallery-event-media"><img src="./images/events/venturers-2026.jpg" alt="" loading="lazy" decoding="async" width="560" height="400" onerror="this.style.opacity='0'"><div class="gallery-event-fallback">V</div></div><div class="gallery-event-label">Venturers 2026</div></div>
+      <div class="gallery-event-card"><div class="gallery-event-media"><img src="./images/events/shark-tank.jpg" alt="" loading="lazy" decoding="async" width="560" height="400" onerror="this.style.opacity='0'"><div class="gallery-event-fallback">ST</div></div><div class="gallery-event-label">Shark Tank</div></div>
+      <div class="gallery-event-card"><div class="gallery-event-media"><img src="./images/events/zero-to-one.jpg" alt="" loading="lazy" decoding="async" width="560" height="400" onerror="this.style.opacity='0'"><div class="gallery-event-fallback">Z</div></div><div class="gallery-event-label">Zero to One</div></div>
+      <div class="gallery-event-card"><div class="gallery-event-media"><img src="./images/events/chai-pe-charcha.jpg" alt="" loading="lazy" decoding="async" width="560" height="400" onerror="this.style.opacity='0'"><div class="gallery-event-fallback">CP</div></div><div class="gallery-event-label">Chai Pe Charcha</div></div>
+      <div class="gallery-event-card"><div class="gallery-event-media"><img src="./images/events/game-of-brands.jpg" alt="" loading="lazy" decoding="async" width="560" height="400" onerror="this.style.opacity='0'"><div class="gallery-event-fallback">GB</div></div><div class="gallery-event-label">Game of Brands</div></div>
+      <div class="gallery-event-card"><div class="gallery-event-media"><img src="./images/events/cric-auction.jpg" alt="" loading="lazy" decoding="async" width="560" height="400" onerror="this.style.opacity='0'"><div class="gallery-event-fallback">CA</div></div><div class="gallery-event-label">Cric Auction</div></div>
+      <div class="gallery-event-card"><div class="gallery-event-media"><img src="./images/events/wall-street.jpg" alt="" loading="lazy" decoding="async" width="560" height="400" onerror="this.style.opacity='0'"><div class="gallery-event-fallback">TW</div></div><div class="gallery-event-label">Thrones of Wall Street</div></div>
+      <div class="gallery-event-card"><div class="gallery-event-media"><img src="./images/events/guest-session.jpg" alt="" loading="lazy" decoding="async" width="560" height="400" onerror="this.style.opacity='0'"><div class="gallery-event-fallback">GS</div></div><div class="gallery-event-label">Guest Session</div></div>
+      <div class="gallery-event-card"><div class="gallery-event-media"><img src="./images/events/edc-pvg.jpg" alt="" loading="lazy" decoding="async" width="560" height="400" onerror="this.style.opacity='0'"><div class="gallery-event-fallback">E</div></div><div class="gallery-event-label">EDC 2026</div></div>
+    </div>
+    <div class="gallery-seq" aria-hidden="true">
+      <div class="gallery-event-card"><div class="gallery-event-media"><img src="./images/events/venturers-2026.jpg" alt="" loading="lazy" decoding="async" width="560" height="400" onerror="this.style.opacity='0'"><div class="gallery-event-fallback">V</div></div><div class="gallery-event-label">Venturers 2026</div></div>
+      <div class="gallery-event-card"><div class="gallery-event-media"><img src="./images/events/shark-tank.jpg" alt="" loading="lazy" decoding="async" width="560" height="400" onerror="this.style.opacity='0'"><div class="gallery-event-fallback">ST</div></div><div class="gallery-event-label">Shark Tank</div></div>
+      <div class="gallery-event-card"><div class="gallery-event-media"><img src="./images/events/zero-to-one.jpg" alt="" loading="lazy" decoding="async" width="560" height="400" onerror="this.style.opacity='0'"><div class="gallery-event-fallback">Z</div></div><div class="gallery-event-label">Zero to One</div></div>
+      <div class="gallery-event-card"><div class="gallery-event-media"><img src="./images/events/chai-pe-charcha.jpg" alt="" loading="lazy" decoding="async" width="560" height="400" onerror="this.style.opacity='0'"><div class="gallery-event-fallback">CP</div></div><div class="gallery-event-label">Chai Pe Charcha</div></div>
+      <div class="gallery-event-card"><div class="gallery-event-media"><img src="./images/events/game-of-brands.jpg" alt="" loading="lazy" decoding="async" width="560" height="400" onerror="this.style.opacity='0'"><div class="gallery-event-fallback">GB</div></div><div class="gallery-event-label">Game of Brands</div></div>
+      <div class="gallery-event-card"><div class="gallery-event-media"><img src="./images/events/cric-auction.jpg" alt="" loading="lazy" decoding="async" width="560" height="400" onerror="this.style.opacity='0'"><div class="gallery-event-fallback">CA</div></div><div class="gallery-event-label">Cric Auction</div></div>
+      <div class="gallery-event-card"><div class="gallery-event-media"><img src="./images/events/wall-street.jpg" alt="" loading="lazy" decoding="async" width="560" height="400" onerror="this.style.opacity='0'"><div class="gallery-event-fallback">TW</div></div><div class="gallery-event-label">Thrones of Wall Street</div></div>
+      <div class="gallery-event-card"><div class="gallery-event-media"><img src="./images/events/guest-session.jpg" alt="" loading="lazy" decoding="async" width="560" height="400" onerror="this.style.opacity='0'"><div class="gallery-event-fallback">GS</div></div><div class="gallery-event-label">Guest Session</div></div>
+      <div class="gallery-event-card"><div class="gallery-event-media"><img src="./images/events/edc-pvg.jpg" alt="" loading="lazy" decoding="async" width="560" height="400" onerror="this.style.opacity='0'"><div class="gallery-event-fallback">E</div></div><div class="gallery-event-label">EDC 2026</div></div>
+    </div>
   </div>
 </div>
 
@@ -677,22 +946,45 @@ footer{background:var(--deep);border-top:1px solid rgba(232,184,75,.08);padding:
   </div>
 </section>
 
-<!-- SPONSORS -->
-<div class="sponsors-section">
-  <div class="sponsors-label">Our Sponsors & Partners</div>
-  <div class="sponsors-row">
-    <div class="sponsor-slot">SPONSOR 1</div>
-    <div class="sponsor-slot">SPONSOR 2</div>
-    <div class="sponsor-slot">SPONSOR 3</div>
-    <div class="sponsor-slot">SPONSOR 4</div>
-    <div class="sponsor-slot">PARTNER 1</div>
+<!-- SPONSORS & PARTNERS (MARQUEE) -->
+<section id="sponsors-partners" aria-label="Sponsors and partners">
+  <div class="sponsors-head">
+    <p class="s-label" style="display:block;margin-bottom:10px">Backed By</p>
+    <h2 class="s-title" style="font-size:clamp(26px,4vw,44px)">Sponsors &amp; Partners</h2>
+    <div class="s-rule" style="margin:16px auto 0;max-width:40px"></div>
+    <p style="color:var(--muted);font-size:14px;margin-top:20px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.7">Thank you to every brand that believes in student builders. Their logos scroll below once you add the image files.</p>
   </div>
-</div>
+  <!-- Sponsor logos: add partner-01.png … partner-08.png under public/images/sponsors/ (or .jpg — update each img src below) -->
+  <div class="sponsors-marquee-mask">
+    <div class="sponsors-marquee-track" id="sponsorMarqueeTrack">
+      <div class="sponsor-marquee-seq">
+        <div class="sponsor-marquee-slot"><div class="sponsor-logo-inner"><img src="./images/sponsors/partner-01.png" alt="Sponsor 1" loading="lazy" decoding="async" width="200" height="80" onerror="this.classList.add('is-hidden');this.nextElementSibling.classList.add('is-visible');"><span class="sponsor-logo-fallback">partner-01.png</span></div></div>
+        <div class="sponsor-marquee-slot"><div class="sponsor-logo-inner"><img src="./images/sponsors/partner-02.png" alt="Sponsor 2" loading="lazy" decoding="async" width="200" height="80" onerror="this.classList.add('is-hidden');this.nextElementSibling.classList.add('is-visible');"><span class="sponsor-logo-fallback">partner-02.png</span></div></div>
+        <div class="sponsor-marquee-slot"><div class="sponsor-logo-inner"><img src="./images/sponsors/partner-03.png" alt="Sponsor 3" loading="lazy" decoding="async" width="200" height="80" onerror="this.classList.add('is-hidden');this.nextElementSibling.classList.add('is-visible');"><span class="sponsor-logo-fallback">partner-03.png</span></div></div>
+        <div class="sponsor-marquee-slot"><div class="sponsor-logo-inner"><img src="./images/sponsors/partner-04.png" alt="Sponsor 4" loading="lazy" decoding="async" width="200" height="80" onerror="this.classList.add('is-hidden');this.nextElementSibling.classList.add('is-visible');"><span class="sponsor-logo-fallback">partner-04.png</span></div></div>
+        <div class="sponsor-marquee-slot"><div class="sponsor-logo-inner"><img src="./images/sponsors/partner-05.png" alt="Sponsor 5" loading="lazy" decoding="async" width="200" height="80" onerror="this.classList.add('is-hidden');this.nextElementSibling.classList.add('is-visible');"><span class="sponsor-logo-fallback">partner-05.png</span></div></div>
+        <div class="sponsor-marquee-slot"><div class="sponsor-logo-inner"><img src="./images/sponsors/partner-06.png" alt="Sponsor 6" loading="lazy" decoding="async" width="200" height="80" onerror="this.classList.add('is-hidden');this.nextElementSibling.classList.add('is-visible');"><span class="sponsor-logo-fallback">partner-06.png</span></div></div>
+        <div class="sponsor-marquee-slot"><div class="sponsor-logo-inner"><img src="./images/sponsors/partner-07.png" alt="Sponsor 7" loading="lazy" decoding="async" width="200" height="80" onerror="this.classList.add('is-hidden');this.nextElementSibling.classList.add('is-visible');"><span class="sponsor-logo-fallback">partner-07.png</span></div></div>
+        <div class="sponsor-marquee-slot"><div class="sponsor-logo-inner"><img src="./images/sponsors/partner-08.png" alt="Sponsor 8" loading="lazy" decoding="async" width="200" height="80" onerror="this.classList.add('is-hidden');this.nextElementSibling.classList.add('is-visible');"><span class="sponsor-logo-fallback">partner-08.png</span></div></div>
+      </div>
+      <div class="sponsor-marquee-seq" aria-hidden="true">
+        <div class="sponsor-marquee-slot"><div class="sponsor-logo-inner"><img src="./images/sponsors/partner-01.png" alt="" loading="lazy" decoding="async" width="200" height="80" onerror="this.classList.add('is-hidden');this.nextElementSibling.classList.add('is-visible');"><span class="sponsor-logo-fallback">partner-01.png</span></div></div>
+        <div class="sponsor-marquee-slot"><div class="sponsor-logo-inner"><img src="./images/sponsors/partner-02.png" alt="" loading="lazy" decoding="async" width="200" height="80" onerror="this.classList.add('is-hidden');this.nextElementSibling.classList.add('is-visible');"><span class="sponsor-logo-fallback">partner-02.png</span></div></div>
+        <div class="sponsor-marquee-slot"><div class="sponsor-logo-inner"><img src="./images/sponsors/partner-03.png" alt="" loading="lazy" decoding="async" width="200" height="80" onerror="this.classList.add('is-hidden');this.nextElementSibling.classList.add('is-visible');"><span class="sponsor-logo-fallback">partner-03.png</span></div></div>
+        <div class="sponsor-marquee-slot"><div class="sponsor-logo-inner"><img src="./images/sponsors/partner-04.png" alt="" loading="lazy" decoding="async" width="200" height="80" onerror="this.classList.add('is-hidden');this.nextElementSibling.classList.add('is-visible');"><span class="sponsor-logo-fallback">partner-04.png</span></div></div>
+        <div class="sponsor-marquee-slot"><div class="sponsor-logo-inner"><img src="./images/sponsors/partner-05.png" alt="" loading="lazy" decoding="async" width="200" height="80" onerror="this.classList.add('is-hidden');this.nextElementSibling.classList.add('is-visible');"><span class="sponsor-logo-fallback">partner-05.png</span></div></div>
+        <div class="sponsor-marquee-slot"><div class="sponsor-logo-inner"><img src="./images/sponsors/partner-06.png" alt="" loading="lazy" decoding="async" width="200" height="80" onerror="this.classList.add('is-hidden');this.nextElementSibling.classList.add('is-visible');"><span class="sponsor-logo-fallback">partner-06.png</span></div></div>
+        <div class="sponsor-marquee-slot"><div class="sponsor-logo-inner"><img src="./images/sponsors/partner-07.png" alt="" loading="lazy" decoding="async" width="200" height="80" onerror="this.classList.add('is-hidden');this.nextElementSibling.classList.add('is-visible');"><span class="sponsor-logo-fallback">partner-07.png</span></div></div>
+        <div class="sponsor-marquee-slot"><div class="sponsor-logo-inner"><img src="./images/sponsors/partner-08.png" alt="" loading="lazy" decoding="async" width="200" height="80" onerror="this.classList.add('is-hidden');this.nextElementSibling.classList.add('is-visible');"><span class="sponsor-logo-fallback">partner-08.png</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- FAQ -->
 <section id="faq" style="background:var(--deep);padding:100px 24px">
   <div class="container">
-    <div style="display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:start">
+    <div class="faq-grid">
       <div>
         <p class="s-label reveal">Got Questions?</p>
         <h2 class="s-title reveal" style="transition-delay:.1s">Frequently Asked</h2>
@@ -765,6 +1057,16 @@ footer{background:var(--deep);border-top:1px solid rgba(232,184,75,.08);padding:
           <option>All Events (General Pass)</option>
         </select>
       </div>
+      <div class="reg-payment-block">
+        <div class="reg-payment-copy">
+          <div class="reg-payment-label">Pay via UPI</div>
+          <p class="reg-payment-desc">Scan the QR to complete payment for paid events. Mention your name and event in the note. Replace the UPI ID below with your official treasury ID before going live.</p>
+          <p class="reg-payment-upi" id="regPaymentUpiText">upi://pay?pa=edc.venturers@bank&amp;pn=VENTURERS%202026&amp;cu=INR</p>
+        </div>
+        <div class="reg-qr-box" id="paymentQrWrap" title="Payment QR">
+          <div id="paymentQr"></div>
+        </div>
+      </div>
       <button class="btn-submit" onclick="submitForm(this)">Register for VENTURERS 2026 →</button>
       <p class="reg-note">Total prize pool ₹10,000 · Open to all branches · Limited seats available</p>
     </div>
@@ -779,6 +1081,8 @@ footer{background:var(--deep);border-top:1px solid rgba(232,184,75,.08);padding:
     <li><a href="#about">About</a></li>
     <li><a href="#events">Events</a></li>
     <li><a href="#schedule">Schedule</a></li>
+    <li><a href="#speakers">Speakers</a></li>
+    <li><a href="#sponsors-partners">Partners</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#register">Register</a></li>
   </ul>
@@ -1098,8 +1402,92 @@ footer{background:var(--deep);border-top:1px solid rgba(232,184,75,.08);padding:
   </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 document.getElementById('yr').textContent = new Date().getFullYear();
+
+// ── HERO STARFIELD (minimal canvas) ──
+(function initStars(){
+  const c=document.getElementById('starsCanvas');
+  if(!c||!c.getContext)return;
+  const ctx=c.getContext('2d');
+  let stars=[],w,h;
+  function resize(){
+    const hero=c.closest('.hero');
+    if(!hero)return;
+    w=c.width=hero.offsetWidth;
+    h=c.height=hero.offsetHeight;
+  }
+  function spawn(){
+    stars=[];
+    const n=Math.min(140,Math.floor((w*h)/9000));
+    for(let i=0;i<n;i++){
+      stars.push({
+        x:Math.random()*w,y:Math.random()*h,
+        r:Math.random()*1.1+.25,
+        tw:Math.random()*Math.PI*2,
+        sp:.015+Math.random()*.035,
+        base:.12+Math.random()*.35
+      });
+    }
+  }
+  function frame(){
+    ctx.clearRect(0,0,w,h);
+    stars.forEach(s=>{
+      s.tw+=s.sp;
+      const a=s.base+Math.sin(s.tw)*.22;
+      ctx.fillStyle=`rgba(232,184,75,${Math.max(.06,Math.min(.85,a))})`;
+      ctx.beginPath();
+      ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fill();
+    });
+    requestAnimationFrame(frame);
+  }
+  resize();
+  spawn();
+  window.addEventListener('resize',()=>{resize();spawn();});
+  requestAnimationFrame(frame);
+})();
+
+// ── SPEAKERS: ANIMATED TABS ──
+(function initSpeakerTabs(){
+  const tabs=document.querySelectorAll('.sp-tab');
+  const panels={
+    speakers:document.getElementById('sp-panel-speakers'),
+    judges:document.getElementById('sp-panel-judges'),
+    mentors:document.getElementById('sp-panel-mentors')
+  };
+  if(!tabs.length)return;
+  tabs.forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      const key=tab.dataset.sp;
+      tabs.forEach(t=>{
+        const on=t===tab;
+        t.classList.toggle('active',on);
+        t.setAttribute('aria-selected',on?'true':'false');
+      });
+      Object.keys(panels).forEach(k=>{
+        const p=panels[k];
+        if(!p)return;
+        const on=k===key;
+        p.classList.toggle('active',on);
+        p.setAttribute('aria-hidden',on?'false':'true');
+      });
+    });
+  });
+})();
+
+// ── REGISTRATION: PAYMENT QR (set UPI string in #regPaymentUpiText) ──
+(function initPaymentQr(){
+  const mount=document.getElementById('paymentQr');
+  const upiEl=document.getElementById('regPaymentUpiText');
+  if(!mount||typeof QRCode==='undefined')return;
+  const text=(upiEl&&upiEl.textContent.trim())||'VENTURERS 2026 — PVG EDC';
+  mount.innerHTML='';
+  try{
+    new QRCode(mount,{text,width:128,height:128,colorDark:'#05050a',colorLight:'#f2ede3',correctLevel:QRCode.CorrectLevel.M});
+  }catch(e){}
+})();
 
 // ── CURSOR ──
 const C=document.getElementById('C'),CR=document.getElementById('CR');

@@ -45,10 +45,12 @@ model Admin{
   id             Int @id @default(autoincrement())
   email          String @unique
   hashedPassword String 
-  permisssions   Permission[] @default([VIEW])
+  permissions    Permission[] @default([VIEW])
+  isApproved     Boolean @default(false)
 }
 
 enum Permission{
   VIEW
   MODIFY
+  SHARE_ACCESS
 }

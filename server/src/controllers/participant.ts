@@ -4,7 +4,7 @@ import { type Request, type Response } from 'express';
 const prisma = new PrismaClient();
 
 export const registerParticipant = async (req: Request, res: Response) => {
-    const { email, firstName, lastName, institute, course, phoneNumber, passTier, eventsApplied, paymentSSLink } = req.body;
+    const { email, firstName, lastName, institute, course, phoneNumber, passTier, eventsApplied, billingAmount, paymentSSLink } = req.body;
 
     try {
         const newParticipant = await prisma.participant.create({
@@ -17,7 +17,7 @@ export const registerParticipant = async (req: Request, res: Response) => {
                 phoneNumber,
                 passTier,
                 eventsApplied: typeof eventsApplied === 'string' ? eventsApplied.split(',') : eventsApplied,
-                billingAmount: 0, // Holding on billing amount logic as requested
+                billingAmount,
                 paymentSSLink,
             },
         });

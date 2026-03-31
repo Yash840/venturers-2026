@@ -32,6 +32,15 @@ export default function Footer() {
             </li>
           </ul>
         </section>
+
+        <section>
+          <h4 className="footer-heading">Contact</h4>
+          <ul className="footer-nav">
+            <li>Manish Divate: +91 87674 27161</li>
+            <li>Atharv Joshi: +91 91720 46569</li>
+            <li>Email: pvgedc@gmail.com</li>
+          </ul>
+        </section>
       </div>
 
       <div className="footer-rule"></div>

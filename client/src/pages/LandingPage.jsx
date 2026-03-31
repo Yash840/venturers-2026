@@ -6,9 +6,11 @@ import About from '../components/About';
 import Events from '../components/Events';
 import Schedule from '../components/Schedule';
 import Marquee from '../components/Marquee';
-import Speakers from '../components/Speakers';
+{/* 
+  import Speakers from '../components/Speakers';
 import Sponsors from '../components/Sponsors';
 import FAQ from '../components/FAQ';
+  */}
 import Register from '../components/Register';
 import Footer from '../components/Footer';
 import CartDrawer from '../components/CartDrawer';
@@ -81,9 +83,10 @@ export default function LandingPage() {
       <Events openModal={(id) => setActiveModal(id)} addToCart={addToCart} cart={cart} />
       <Schedule />
       <Marquee />
-      <Speakers />
+      {/* <Speakers />
       <Sponsors />
-      <FAQ />
+      <FAQ />*/}
+      
       <Register cart={cart} removeFromCart={removeFromCart} showToast={showToast} />
       <Footer />
 

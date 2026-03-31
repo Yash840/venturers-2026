@@ -32,7 +32,7 @@ export default function About() {
         </div>
         <div className="about-right">
           <div className="stat-card reveal-right" style={{ transitionDelay: '.1s' }}>
-            <div className="stat-num">500+</div>
+            <div className="stat-num">1000+</div>
             <div>
               <div style={{ fontFamily: "'Playfair Display'", fontSize: '17px', color: 'var(--cream)', marginBottom: '4px' }}>Participants Expected</div>
               <div className="stat-label">From across Pune</div>
@@ -45,18 +45,11 @@ export default function About() {
               <div className="stat-label">Pitching · Finance · Strategy · More</div>
             </div>
           </div>
-          <div className="stat-card reveal-right" style={{ transitionDelay: '.26s' }}>
-            <div className="stat-num">₹10K</div>
-            <div>
-              <div style={{ fontFamily: "'Playfair Display'", fontSize: '17px', color: 'var(--cream)', marginBottom: '4px' }}>Prize Pool</div>
-              <div className="stat-label">Cash prizes &amp; awards</div>
-            </div>
-          </div>
           <div className="stat-card reveal-right" style={{ transitionDelay: '.34s' }}>
             <div className="stat-num">2</div>
             <div>
               <div style={{ fontFamily: "'Playfair Display'", fontSize: '17px', color: 'var(--cream)', marginBottom: '4px' }}>Days of Innovation</div>
-              <div className="stat-label">April 13 – 14, 2026</div>
+              <div className="stat-label">April 10 – 11, 2026</div>
             </div>
           </div>
         </div>

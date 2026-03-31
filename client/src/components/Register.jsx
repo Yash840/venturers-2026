@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import paymentSSImg from '../assets/payment_ss.jpeg';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
 
@@ -8,8 +9,8 @@ const EVENT_CATALOG = [
   { id: 'chai', title: 'Chai Pe Charcha!', fee: 0 },
   { id: 'gob', title: 'Game of Brands', fee: 150 },
   { id: 'cric', title: 'Cric Auction', fee: 200 },
-  { id: 'wallst', title: 'Thrones of Wall Street', fee: 150 },
-  { id: 'guest', title: 'Guest Session', fee: 0 }
+  { id: 'wallst', title: 'Wolf of Wall Street', fee: 150 },
+  { id: 'guest', title: 'Speaker Session', fee: 0 }
 ];
 
 const PASS_TIER = {
@@ -31,7 +32,8 @@ function calculateBilling(passTier, selectedEventIds) {
   let discountPercent = 0;
   if (passTier === PASS_TIER.PREMIUM) {
     discountPercent = 20;
-  } else if (passTier === PASS_TIER.CUSTOMIZED && selectedEvents.length > 2) {
+  } else if (passTier === PASS_TIER.CUSTOMIZED && selectedEvents.filter((eventItem) => eventItem.fee > 0).length > 2) {
+    // Only count paid events (fee > 0) towards the 3-event threshold
     discountPercent = 10;
   }
 
@@ -47,7 +49,6 @@ function calculateBilling(passTier, selectedEventIds) {
 }
 
 export default function Register({ cart, removeFromCart, showToast }) {
-  const qrRef = useRef(null);
   const [busy, setBusy] = useState(false);
 
   const [formValues, setFormValues] = useState({
@@ -63,24 +64,6 @@ export default function Register({ cart, removeFromCart, showToast }) {
   const [selectedEventIds, setSelectedEventIds] = useState([]);
   const [eventToAdd, setEventToAdd] = useState('');
   const [paymentSSFile, setPaymentSSFile] = useState(null);
-
-  useEffect(() => {
-    if (qrRef.current && window.QRCode) {
-      qrRef.current.innerHTML = '';
-      try {
-        new window.QRCode(qrRef.current, {
-          text: 'upi://pay?pa=edc.venturers@bank&pn=VENTURERS%202026&cu=INR',
-          width: 128,
-          height: 128,
-          colorDark: '#05050a',
-          colorLight: '#f2ede3',
-          correctLevel: window.QRCode.CorrectLevel.M
-        });
-      } catch (e) {
-        console.error(e);
-      }
-    }
-  }, []);
 
   useEffect(() => {
     if (formValues.passTier === PASS_TIER.PREMIUM) {
@@ -137,6 +120,11 @@ export default function Register({ cart, removeFromCart, showToast }) {
 
     if (selectedEventIds.length === 0) {
       showToast('Please select at least one event.');
+      return;
+    }
+
+    if (!paymentSSFile) {
+      showToast('Please upload your payment screenshot.');
       return;
     }
 
@@ -230,7 +218,7 @@ export default function Register({ cart, removeFromCart, showToast }) {
               </button>
             </div>
             <p className="reg-pass-note">
-              Premium: all events with 20% discount. Customized: 10% discount only if more than 2 events are selected.
+              Premium: all events with 20% discount. Customized: 10% discount only if more than 2 (paid) events are selected.
             </p>
           </div>
 
@@ -284,24 +272,22 @@ export default function Register({ cart, removeFromCart, showToast }) {
               accept="image/*"
               onChange={(event) => setPaymentSSFile(event.target.files?.[0] || null)}
             />
-            <p className="reg-note" style={{ marginTop: '8px' }}>Upload payment screenshot (optional but recommended for faster verification).</p>
+            <p className="reg-note" style={{ marginTop: '8px' }}>Upload payment screenshot (required for verification).</p>
           </div>
           
           <div className="reg-payment-block">
             <div className="reg-payment-copy">
               <div className="reg-payment-label">Pay via UPI</div>
               <p className="reg-payment-desc">Pay exactly the payable amount shown above. Mention your name and selected pass in payment note.</p>
-              <p className="reg-payment-upi" id="regPaymentUpiText">upi://pay?pa=edc.venturers@bank&amp;pn=VENTURERS%202026&amp;cu=INR</p>
             </div>
             <div className="reg-qr-box" id="paymentQrWrap" title="Payment QR">
-              <div id="paymentQr" ref={qrRef}></div>
+              <img src={paymentSSImg} alt="Payment Asset" style={{ width: '128px', height: '128px', objectFit: 'cover' }} />
             </div>
           </div>
           
           <button className="btn-submit" onClick={submitForm} disabled={busy}>
             {busy ? 'Submitting Registration...' : 'Register for VENTURERS 2026 →'}
           </button>
-          <p className="reg-note">Total prize pool INR 10,000 · Open to all branches · Limited seats available</p>
         </div>
       </div>
     </section>

@@ -18,9 +18,12 @@ export default function Nav({ cartCount, openCart }) {
         <a href="#about" onClick={() => setNavOpen(false)}>About</a>
         <a href="#events" onClick={() => setNavOpen(false)}>Events</a>
         <a href="#schedule" onClick={() => setNavOpen(false)}>Schedule</a>
+        {/*
         <a href="#speakers" onClick={() => setNavOpen(false)}>Speakers</a>
         <a href="#sponsors-partners" onClick={() => setNavOpen(false)}>Partners</a>
         <a href="#faq" onClick={() => setNavOpen(false)}>FAQ</a>
+        */}
+        
         <a href="#register" onClick={() => setNavOpen(false)}>Register</a>
       </div>
 
@@ -39,9 +42,11 @@ export default function Nav({ cartCount, openCart }) {
           <li><a href="#about">About</a></li>
           <li><a href="#events">Events</a></li>
           <li><a href="#schedule">Schedule</a></li>
+          {/* 
           <li><a href="#speakers">Speakers</a></li>
           <li><a href="#sponsors-partners">Partners</a></li>
           <li><a href="#faq">FAQ</a></li>
+          */}
           <li><a href="#register">Register</a></li>
         </ul>
         <div className="nav-right">

@@ -2,9 +2,8 @@ import React, { useEffect } from 'react';
 
 const modalsData = {
   sharktank: {
-    id: 'sharktank', badge: 'Flagship Event', day: 'Day 1 — Apr 13', title: 'Shark Tank', 
+    id: 'sharktank', badge: 'Flagship Event', day: 'Day 1 — Apr 10', title: 'Shark Tank', 
     meta: [
-      { i: <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>, text: '7 min pitch' },
       { i: <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>, text: '1–4 members' },
       { i: <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>, text: 'Reg: ₹100' }
     ],
@@ -12,11 +11,11 @@ const modalsData = {
     content: (
       <>
         <p>The <strong>Shark Tank</strong> event is a live startup pitching experience where student teams pitch their venture ideas to a panel of <strong>3–4 Sharks</strong> — real entrepreneurs, investors, and industry leaders.</p>
-        <p>Teams register via this form and receive a <strong>Pitch Deck Template</strong>. Each team gets <strong>7 minutes</strong> to pitch their startup before the Sharks.</p>
+        <p>Teams register via this form and receive a <strong>Pitch Deck Template</strong>.</p>
         <ol className="m-steps">
           <li><span className="m-n">1</span><span>Register below — submit your problem statement, solution, and team details.</span></li>
           <li><span className="m-n">2</span><span>Prepare your pitch using the provided Pitch Deck template and bring it on event day.</span></li>
-          <li><span className="m-n">3</span><span>Present for 7 minutes — cover the problem, solution, target market, revenue model, and growth plan.</span></li>
+          <li><span className="m-n">3</span><span>Cover the problem, solution, target market, revenue model, and growth plan.</span></li>
           <li><span className="m-n">4</span><span>Answer Shark questions on concept, execution plan, and market viability.</span></li>
           <li><span className="m-n">5</span><span>Sharks may choose to <strong>mentor, collaborate, or invest</strong> in promising ideas at their discretion.</span></li>
           <li><span className="m-n">6</span><span>Top team wins the <strong>Shark's Choice Award</strong> announced at the closing ceremony.</span></li>
@@ -25,7 +24,7 @@ const modalsData = {
     )
   },
   zerotone: {
-    id: 'zerotone', badge: 'Makeathon', day: 'Day 1 — Apr 13', title: 'Zero to One', 
+    id: 'zerotone', badge: 'Makeathon', day: 'Day 1 — Apr 10', title: 'Zero to One', 
     meta: [
       { i: <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>, text: '3 rounds' },
       { i: <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>, text: '2–4 members' },
@@ -45,7 +44,7 @@ const modalsData = {
     )
   },
   chai: {
-    id: 'chai', badge: 'Networking Session', day: 'Day 1 — Apr 13', title: 'Chai Pe Charcha!', 
+    id: 'chai', badge: 'Networking Session', day: 'Day 1 — Apr 10', title: 'Chai Pe Charcha!', 
     meta: [
       { i: <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>, text: '2 hours' },
       { i: <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>, text: 'Individual' },
@@ -58,16 +57,16 @@ const modalsData = {
         <ol className="m-steps">
           <li><span className="m-n">1</span><span><strong>Guest Arrival &amp; Welcome:</strong> Founders arrive, warm welcome and brief orientation.</span></li>
           <li><span className="m-n">2</span><span><strong>Introduction Session:</strong> Short intros highlighting each founder's background and journey.</span></li>
-          <li><span className="m-n">3</span><span><strong>Founder Talk (10–15 min):</strong> Each founder shares their startup journey, challenges, and practical advice.</span></li>
+          <li><span className="m-n">3</span><span><strong>Founder Talk:</strong> Each founder shares their startup journey, challenges, and practical advice.</span></li>
           <li><span className="m-n">4</span><span><strong>Open Networking Round:</strong> Small group discussions and one-on-one conversations.</span></li>
-          <li><span className="m-n">5</span><span><strong>Idea Pitch &amp; Feedback:</strong> Students get 1–2 minutes to pitch and receive quick constructive feedback.</span></li>
+          <li><span className="m-n">5</span><span><strong>Idea Pitch &amp; Feedback:</strong> Students get to pitch and receive quick constructive feedback.</span></li>
           <li><span className="m-n">6</span><span><strong>Mentorship &amp; Collaboration:</strong> Exchange contacts, explore collaborations, and seek long-term mentorship.</span></li>
         </ol>
       </>
     )
   },
   gob: {
-    id: 'gob', badge: 'Debate Competition', day: 'Day 2 — Apr 14', title: 'Game of Brands — The Brand War',
+    id: 'gob', badge: 'Debate Competition', day: 'Day 2 — Apr 11', title: 'Game of Brands — The Brand War',
     meta: [
       { i: <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>, text: '3 members/team' },
       { i: <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>, text: 'Reg: ₹150' }
@@ -95,7 +94,7 @@ const modalsData = {
     regExtra: <input className="m-inp" type="text" placeholder="Team Name (exactly 3 members)" style={{ marginBottom: '12px' }} />
   },
   cric: {
-    id: 'cric', badge: 'Strategy Game', day: 'Day 2 — Apr 14', title: 'Cric Auction',
+    id: 'cric', badge: 'Strategy Game', day: 'Day 2 — Apr 11', title: 'Cric Auction',
     meta: [
       { i: <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>, text: 'Individual / Pairs' },
       { i: <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>, text: 'Reg: ₹200' }
@@ -115,7 +114,7 @@ const modalsData = {
     )
   },
   wallst: {
-    id: 'wallst', badge: 'Finance Simulation', day: 'Day 2 — Apr 14', title: 'Thrones of Wall Street',
+    id: 'wallst', badge: 'Finance Simulation', day: 'Day 2 — Apr 11', title: 'Thrones of Wall Street',
     meta: [
       { i: <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>, text: '2–3 members' },
       { i: <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/></svg>, text: 'Portfolio battle' },
@@ -132,7 +131,7 @@ const modalsData = {
     regExtra: <input className="m-inp" type="text" placeholder="Team Name (2–3 members)" style={{ marginBottom: '12px' }} />
   },
   guest: {
-    id: 'guest', badge: 'Keynote', day: 'Day 1 — Apr 13', title: 'Guest Session',
+    id: 'guest', badge: 'Keynote', day: 'Day 1 — Apr 10', title: 'Speaker Session',
     meta: [
       { i: <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>, text: '~1 hour' },
       { i: <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>, text: 'Open to all' },

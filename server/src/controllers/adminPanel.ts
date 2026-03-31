@@ -21,7 +21,8 @@ export const getPendingRequests = async (req: AuthRequest, res: Response) => {
 // Required Permission: SHARE_ACCESS
 export const grantAccess = async (req: AuthRequest, res: Response): Promise<any> => {
     try {
-        const adminId = parseInt(req.params.id);
+        const rawAdminId = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+        const adminId = Number.parseInt(rawAdminId ?? '', 10);
         const { permissions } = req.body;
 
         if (isNaN(adminId)) return res.status(400).json({ error: 'Invalid admin ID' });
@@ -59,7 +60,8 @@ export const getParticipants = async (req: AuthRequest, res: Response) => {
 // Required Permission: MODIFY
 export const verifyParticipant = async (req: AuthRequest, res: Response): Promise<any> => {
     try {
-        const participantId = parseInt(req.params.id);
+        const rawParticipantId = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+        const participantId = Number.parseInt(rawParticipantId ?? '', 10);
         if (isNaN(participantId)) return res.status(400).json({ error: 'Invalid participant ID' });
 
         const participant = await prisma.participant.findUnique({ where: { id: participantId } });

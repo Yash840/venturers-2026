@@ -3,6 +3,7 @@ import { PrismaClient, Permission } from '../../generated/prisma/client';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 
+
 const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-key';
 

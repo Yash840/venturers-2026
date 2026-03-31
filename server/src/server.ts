@@ -6,7 +6,7 @@ import participantRoutes from './routes/participant';
 import adminAuthRoutes from './routes/adminAuth';
 import adminPanelRoutes from './routes/adminPanel';
 
-dotenv.config({debug: true});
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -37,6 +37,10 @@ const corsOptions: cors.CorsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
+
+app.get('/api/health', (_req, res) => {
+    res.status(200).json({ status: 'ok' });
+});
 
 app.use('/api/participants', participantRoutes);
 app.use('/api/admin/auth', adminAuthRoutes);

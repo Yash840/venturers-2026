@@ -4,9 +4,7 @@ import dotenv from 'dotenv';
 import multer from 'multer';
 import { Readable } from 'stream';
 
-import path from 'path';
-
-dotenv.config({ path: path.resolve(__dirname, '../../.env'), debug: true });
+dotenv.config();
 
 cloudinary.config({
   secure: true
@@ -27,6 +25,8 @@ export const uploadImage = async (req: Request, res: Response, next: NextFunctio
     if (!req.file) {
       return next();
     }
+
+    const fileBuffer = req.file.buffer;
     
     const uploadPromise = new Promise<string>((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
@@ -45,7 +45,7 @@ export const uploadImage = async (req: Request, res: Response, next: NextFunctio
       );
 
       const readableStream = new Readable();
-      readableStream.push(req.file.buffer);
+      readableStream.push(fileBuffer);
       readableStream.push(null);
       readableStream.pipe(uploadStream);
     });

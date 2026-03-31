@@ -47,7 +47,11 @@ export default function Hero() {
         stars.forEach(s => {
           s.tw += s.sp;
           const a = s.base + Math.sin(s.tw) * 0.22;
+<<<<<<< HEAD
           ctx.fillStyle = `rgba(255,212,77,${Math.max(0.06, Math.min(0.85, a))})`;
+=======
+          ctx.fillStyle = `rgba(232,184,75,${Math.max(0.06, Math.min(0.85, a))})`;
+>>>>>>> main
           ctx.beginPath();
           ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
           ctx.fill();

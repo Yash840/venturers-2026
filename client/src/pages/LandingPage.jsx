@@ -5,6 +5,10 @@ import Ticker from '../components/Ticker';
 import About from '../components/About';
 import Events from '../components/Events';
 import Schedule from '../components/Schedule';
+<<<<<<< HEAD
+=======
+import Marquee from '../components/Marquee';
+>>>>>>> main
 {/* 
   import Speakers from '../components/Speakers';
 import Sponsors from '../components/Sponsors';
@@ -81,6 +85,10 @@ export default function LandingPage() {
       <About />
       <Events openModal={(id) => setActiveModal(id)} addToCart={addToCart} cart={cart} />
       <Schedule />
+<<<<<<< HEAD
+=======
+      <Marquee />
+>>>>>>> main
       {/* <Speakers />
       <Sponsors />
       <FAQ />*/}

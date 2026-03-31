@@ -1,5 +1,6 @@
 import React from 'react';
 
+<<<<<<< HEAD
 const buildLogo = (abbr, subline = 'VENTURERS 2026') => {
   const svg = `
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 400" role="img" aria-label="${abbr} logo">
@@ -32,6 +33,18 @@ const eventsImages = [
   { img: buildLogo('WS'), fallback: 'WS', label: 'Wolf of Wall Street' },
   { img: buildLogo('SS'), fallback: 'SS', label: 'Speaker Session' },
   { img: buildLogo('EDC'), fallback: 'E', label: 'EDC 2026' }
+=======
+const eventsImages = [
+  { img: './images/events/venturers-2026.jpg', fallback: 'V', label: 'Venturers 2026' },
+  { img: './images/events/shark-tank.jpg', fallback: 'ST', label: 'Shark Tank' },
+  { img: './images/events/zero-to-one.jpg', fallback: 'ZtO', label: 'Zero to One' },
+  { img: './images/events/chai-pe-charcha.jpg', fallback: 'CPC', label: 'Chai Pe Charcha' },
+  { img: './images/events/game-of-brands.jpg', fallback: 'GoB', label: 'Game of Brands' },
+  { img: './images/events/cric-auction.jpg', fallback: 'CA', label: 'Cric Auction' },
+  { img: './images/events/wall-street.jpg', fallback: 'WoWS', label: 'Wolf of Wall Street' },
+  { img: './images/events/guest-session.jpg', fallback: 'SS', label: 'Speaker Session' },
+  { img: './images/events/edc-pvg.jpg', fallback: 'E', label: 'EDC 2026' }
+>>>>>>> main
 ];
 
 export default function Marquee() {

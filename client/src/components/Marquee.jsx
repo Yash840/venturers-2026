@@ -3,12 +3,12 @@ import React from 'react';
 const eventsImages = [
   { img: './images/events/venturers-2026.jpg', fallback: 'V', label: 'Venturers 2026' },
   { img: './images/events/shark-tank.jpg', fallback: 'ST', label: 'Shark Tank' },
-  { img: './images/events/zero-to-one.jpg', fallback: 'Z', label: 'Zero to One' },
-  { img: './images/events/chai-pe-charcha.jpg', fallback: 'CP', label: 'Chai Pe Charcha' },
-  { img: './images/events/game-of-brands.jpg', fallback: 'GB', label: 'Game of Brands' },
+  { img: './images/events/zero-to-one.jpg', fallback: 'ZtO', label: 'Zero to One' },
+  { img: './images/events/chai-pe-charcha.jpg', fallback: 'CPC', label: 'Chai Pe Charcha' },
+  { img: './images/events/game-of-brands.jpg', fallback: 'GoB', label: 'Game of Brands' },
   { img: './images/events/cric-auction.jpg', fallback: 'CA', label: 'Cric Auction' },
-  { img: './images/events/wall-street.jpg', fallback: 'TW', label: 'Thrones of Wall Street' },
-  { img: './images/events/guest-session.jpg', fallback: 'GS', label: 'Guest Session' },
+  { img: './images/events/wall-street.jpg', fallback: 'WoWS', label: 'Wolf of Wall Street' },
+  { img: './images/events/guest-session.jpg', fallback: 'SS', label: 'Speaker Session' },
   { img: './images/events/edc-pvg.jpg', fallback: 'E', label: 'EDC 2026' }
 ];
 

@@ -79,7 +79,7 @@ export default function Hero() {
   }, []);
 
   useEffect(() => {
-    const eventDate = new Date('2026-04-13T09:00:00');
+    const eventDate = new Date('2026-04-10T09:00:00');
     const updateCD = () => {
       const now = new Date();
       const diff = eventDate - now;
@@ -114,9 +114,8 @@ export default function Hero() {
       <div className="hero-vignette"></div>
       <div className="hero-particles" id="hparticles"></div>
       <div className="hero-content">
-        <div className="hero-eyebrow"><span className="dot"></span>Flagship Event 2026</div>
         <h1 className="hero-title" id="htitle">VENTURERS</h1>
-        <div className="hero-dates">April 13 – 14, 2026 · PVG's COET&M, Pune</div>
+        <div className="hero-dates">April 10 – 11, 2026 · PVG's COET&M, Pune</div>
         <p className="hero-subtitle">— Igniting Innovation, Fuelling the Entrepreneurial Spirit —</p>
         <div className="hero-line"></div>
         <p className="hero-org">Presented by <span>PVG's COET&M · Entrepreneurship Development Cell</span></p>

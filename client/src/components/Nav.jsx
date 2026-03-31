@@ -31,7 +31,7 @@ export default function Nav({ cartCount, openCart }) {
       <nav id="nav" className={scrolled ? 'scrolled' : ''}>
         <a className="nav-brand" href="#">
           <div className="nav-brand-mark">
-            <img src="./logo.png" alt="EDC Logo" className="nav-logo" />
+            <img src="/logo.png" alt="EDC Logo" className="nav-logo" />
           </div>
           <div className="nav-brand-text">
             <span className="t1">PVG's COET&M</span>

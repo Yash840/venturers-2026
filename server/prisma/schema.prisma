@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Participant {
+  id              Int       @id @default(autoincrement())
+  email           String    @unique
+  firstName       String
+  lastName        String
+  institute       String
+  course          String
+  phoneNumber     String
+  passTier        PassTier
+  eventsApplied   String[]  @default([])
+  billingAmount   Float
+  isVerified      Boolean   @default(false)
+  paymentSSLink   String
+}
+
+enum Year {
+  First
+  Second
+  Third
+  Fourth
+}
+
+enum PassTier {
+  Premium
+  Customized
+}
+
+model Admin{
+  id             Int @id @default(autoincrement())
+  email          String @unique
+  hashedPassword String 
+  permissions    Permission[] @default([VIEW])
+  isApproved     Boolean @default(false)
+}
+
+enum Permission{
+  VIEW
+  MODIFY
+  SHARE_ACCESS
+}

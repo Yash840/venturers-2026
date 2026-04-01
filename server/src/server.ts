@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import participantRoutes from './routes/participant';
 import adminAuthRoutes from './routes/adminAuth';
 import adminPanelRoutes from './routes/adminPanel';
+import { connectDb } from './lib/db';
 
 dotenv.config();
 
@@ -46,6 +47,13 @@ app.use('/api/participants', participantRoutes);
 app.use('/api/admin/auth', adminAuthRoutes);
 app.use('/api/admin/panel', adminPanelRoutes);
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
+connectDb()
+    .then(() => {
+        app.listen(port, () => {
+            console.log(`Server is running on port ${port}`);
+        });
+    })
+    .catch((err) => {
+        console.error('Failed to connect to MongoDB', err);
+        process.exit(1);
+    });

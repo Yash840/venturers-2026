@@ -1,17 +1,16 @@
 import { type Response } from 'express';
-import { PrismaClient, Permission } from '../../generated/prisma/client';
+import { Admin } from '../models/Admin';
+import { Participant } from '../models/Participant';
+import { Permission } from '../types/enums';
 import { type AuthRequest } from '../middlewares/auth';
-
-const prisma = new PrismaClient();
 
 // Required Permission: SHARE_ACCESS
 export const getPendingRequests = async (req: AuthRequest, res: Response) => {
     try {
-        const pendingAdmins = await prisma.admin.findMany({
-            where: { isApproved: false },
-            select: { id: true, email: true, permissions: true, isApproved: true }
-        });
-        res.json(pendingAdmins);
+        const pendingAdmins = await Admin.find({ isApproved: false })
+            .select('id email permissions isApproved')
+            .sort({ id: 1 });
+        res.json(pendingAdmins.map((a) => a.toJSON()));
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Server error fetching requests' });
@@ -27,19 +26,28 @@ export const grantAccess = async (req: AuthRequest, res: Response): Promise<any>
 
         if (isNaN(adminId)) return res.status(400).json({ error: 'Invalid admin ID' });
 
-        const admin = await prisma.admin.findUnique({ where: { id: adminId } });
+        const admin = await Admin.findOne({ id: adminId });
         if (!admin) return res.status(404).json({ error: 'Admin not found' });
 
-        const updatedAdmin = await prisma.admin.update({
-            where: { id: adminId },
-            data: {
-                isApproved: true,
-                permissions: permissions || admin.permissions
-            },
-            select: { id: true, email: true, isApproved: true, permissions: true }
-        });
+        const nextPermissions: Permission[] =
+            permissions !== undefined && permissions !== null && Array.isArray(permissions)
+                ? permissions.filter((p): p is Permission => Object.values(Permission).includes(p as Permission))
+                : admin.permissions;
 
-        res.json({ message: 'Access granted successfully', admin: updatedAdmin });
+        const updatedAdmin = await Admin.findOneAndUpdate(
+            { id: adminId },
+            {
+                isApproved: true,
+                permissions: nextPermissions,
+            },
+            { new: true, select: 'id email isApproved permissions' }
+        );
+
+        if (!updatedAdmin) {
+            return res.status(404).json({ error: 'Admin not found' });
+        }
+
+        res.json({ message: 'Access granted successfully', admin: updatedAdmin.toJSON() });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Server error granting access' });
@@ -49,8 +57,8 @@ export const grantAccess = async (req: AuthRequest, res: Response): Promise<any>
 // Required Permission: VIEW
 export const getParticipants = async (req: AuthRequest, res: Response) => {
     try {
-        const participants = await prisma.participant.findMany();
-        res.json(participants);
+        const participants = await Participant.find().sort({ id: 1 });
+        res.json(participants.map((p) => p.toJSON()));
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Server error fetching participants' });
@@ -64,15 +72,13 @@ export const verifyParticipant = async (req: AuthRequest, res: Response): Promis
         const participantId = Number.parseInt(rawParticipantId ?? '', 10);
         if (isNaN(participantId)) return res.status(400).json({ error: 'Invalid participant ID' });
 
-        const participant = await prisma.participant.findUnique({ where: { id: participantId } });
+        const participant = await Participant.findOne({ id: participantId });
         if (!participant) return res.status(404).json({ error: 'Participant not found' });
 
-        const updatedParticipant = await prisma.participant.update({
-            where: { id: participantId },
-            data: { isVerified: !participant.isVerified } // switches the flag
-        });
+        participant.isVerified = !participant.isVerified;
+        await participant.save();
 
-        res.json({ message: 'Participant verification status toggled', participant: updatedParticipant });
+        res.json({ message: 'Participant verification status toggled', participant: participant.toJSON() });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Server error verifying participant' });

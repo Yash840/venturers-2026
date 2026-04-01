@@ -1,10 +1,10 @@
 import { type Request, type Response } from 'express';
-import { PrismaClient, Permission } from '../../generated/prisma/client';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
+import { Admin } from '../models/Admin';
+import { Permission } from '../types/enums';
+import { getNextSequence } from '../utils/nextSequence';
 
-
-const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-key';
 
 function hashPassword(password: string): string {
@@ -26,16 +26,16 @@ export const signUpAdmin = async (req: Request, res: Response): Promise<any> => 
         const { email, password } = req.body;
         if (!email || !password) return res.status(400).json({ error: 'Email and password required' });
 
-        const existing = await prisma.admin.findUnique({ where: { email } });
+        const existing = await Admin.findOne({ email: String(email).trim().toLowerCase() });
         if (existing) return res.status(400).json({ error: 'Admin email already exists' });
 
-        await prisma.admin.create({
-            data: {
-                email,
-                hashedPassword: hashPassword(password),
-                isApproved: false,
-                permissions: [Permission.VIEW]
-            }
+        const id = await getNextSequence('Admin');
+        await Admin.create({
+            id,
+            email: String(email).trim().toLowerCase(),
+            hashedPassword: hashPassword(password),
+            isApproved: false,
+            permissions: [Permission.VIEW],
         });
 
         res.status(201).json({ message: 'Sign up successful. Wait for super-admin or authorized admin to approve your request.' });
@@ -67,7 +67,7 @@ export const signInAdmin = async (req: Request, res: Response): Promise<any> => 
         }
 
         // Check normal admin
-        const admin = await prisma.admin.findUnique({ where: { email } });
+        const admin = await Admin.findOne({ email: String(email).trim().toLowerCase() });
         if (!admin) return res.status(401).json({ error: 'Invalid credentials' });
 
         if (!verifyPassword(password, admin.hashedPassword)) {
@@ -84,7 +84,7 @@ export const signInAdmin = async (req: Request, res: Response): Promise<any> => 
             { expiresIn: '12h' }
         );
         res.cookie('admin_token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
-        
+
         return res.json({ message: 'Admin login successful', token });
     } catch (err) {
         console.error(err);

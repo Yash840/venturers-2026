@@ -1,7 +1,8 @@
-import { PassTier, Prisma, PrismaClient } from '../../generated/prisma/client';
 import { type Request, type Response } from 'express';
-
-const prisma = new PrismaClient();
+import { MongoServerError } from 'mongodb';
+import { Participant } from '../models/Participant';
+import { PassTier } from '../types/enums';
+import { getNextSequence } from '../utils/nextSequence';
 
 export const registerParticipant = async (req: Request, res: Response) => {
     const { email, firstName, lastName, institute, course, phoneNumber, passTier, eventsApplied, billingAmount, paymentSSLink } = req.body;
@@ -39,23 +40,23 @@ export const registerParticipant = async (req: Request, res: Response) => {
 
         const normalizedPaymentSSLink = typeof paymentSSLink === 'string' ? paymentSSLink : '';
 
-        const newParticipant = await prisma.participant.create({
-            data: {
-                email: normalizedEmail,
-                firstName: normalizedFirstName,
-                lastName: normalizedLastName,
-                institute: normalizedInstitute,
-                course: normalizedCourse,
-                phoneNumber: normalizedPhoneNumber,
-                passTier,
-                eventsApplied: normalizedEventsApplied,
-                billingAmount: normalizedBillingAmount,
-                paymentSSLink: normalizedPaymentSSLink,
-            },
+        const id = await getNextSequence('Participant');
+        const newParticipant = await Participant.create({
+            id,
+            email: normalizedEmail,
+            firstName: normalizedFirstName,
+            lastName: normalizedLastName,
+            institute: normalizedInstitute,
+            course: normalizedCourse,
+            phoneNumber: normalizedPhoneNumber,
+            passTier,
+            eventsApplied: normalizedEventsApplied,
+            billingAmount: normalizedBillingAmount,
+            paymentSSLink: normalizedPaymentSSLink,
         });
         return res.status(201).json(newParticipant);
     } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
+        if (error instanceof MongoServerError && error.code === 11000) {
             return res.status(409).json({ error: 'A participant with this email already exists.' });
         }
 

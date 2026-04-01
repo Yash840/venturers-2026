@@ -1,6 +1,6 @@
 import { type Request, type Response, type NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { type Permission } from '../../generated/prisma/client';
+import { type Permission } from '../types/enums';
 
 export interface AuthRequest extends Request {
     user?: {

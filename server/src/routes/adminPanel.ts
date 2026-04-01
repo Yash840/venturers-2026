@@ -1,7 +1,7 @@
 import express from 'express';
 import { getPendingRequests, grantAccess, getParticipants, verifyParticipant } from '../controllers/adminPanel';
 import { requireAuth, requirePermission } from '../middlewares/auth';
-import { Permission } from '../../generated/prisma/client';
+import { Permission } from '../types/enums';
 
 const router = express.Router();
 

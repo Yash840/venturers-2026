@@ -24,7 +24,7 @@ const modalsData = {
     )
   },
   zerotone: {
-    id: 'zerotone', badge: 'Makeathon', day: 'Day 1 — Apr 10', title: 'Zero to One', 
+    id: 'zerotone', badge: 'Makeathon', day: 'Day 2 — Apr 11', title: 'Zero to One', 
     meta: [
       { i: <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>, text: '3 rounds' },
       { i: <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>, text: '2–4 members' },
@@ -114,7 +114,7 @@ const modalsData = {
     )
   },
   wallst: {
-    id: 'wallst', badge: 'Finance Simulation', day: 'Day 2 — Apr 11', title: 'Thrones of Wall Street',
+    id: 'wallst', badge: 'Finance Simulation', day: 'Day 1 — Apr 10', title: 'Wolf of Wall Street',
     meta: [
       { i: <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>, text: '2–3 members' },
       { i: <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/></svg>, text: 'Portfolio battle' },
@@ -123,7 +123,7 @@ const modalsData = {
     prizeTitle: 'Prize Money — Total ₹1,500', prizes: [{ name: '🥇 1st Place', amount: '₹700' }, { name: '🥈 2nd Place', amount: '₹500' }, { name: '🥉 3rd Place', amount: '₹300' }],
     content: (
       <>
-        <p><strong>Thrones of Wall Street</strong> is an interactive simulation that recreates a simplified trading environment. Participants form teams and enter a virtual marketplace with multiple <strong>fictional companies across different sectors</strong>.</p>
+        <p><strong>Wolf of Wall Street</strong> is an interactive simulation that recreates a simplified trading environment. Participants form teams and enter a virtual marketplace with multiple <strong>fictional companies across different sectors</strong>.</p>
         <p>Each company starts with a defined market value that <strong>changes dynamically</strong> based on simulated market events, corporate announcements, and economic updates.</p>
         <p>Teams must <strong>analyze information, evaluate opportunities, and make informed investment decisions</strong> to build the strongest portfolio.</p>
       </>

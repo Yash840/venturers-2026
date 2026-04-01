@@ -8,13 +8,12 @@ const participantSchema = new Schema(
         firstName: { type: String, required: true, trim: true },
         lastName: { type: String, required: true, trim: true },
         institute: { type: String, required: true, trim: true },
-        course: { type: String, required: true, trim: true },
         phoneNumber: { type: String, required: true, trim: true },
         passTier: { type: String, enum: Object.values(PassTier), required: true },
         eventsApplied: { type: [String], default: [] },
         billingAmount: { type: Number, required: true },
         isVerified: { type: Boolean, default: false },
-        paymentSSLink: { type: String, required: true },
+        paymentSSLink: { type: String, required: false },
     },
     { id: false, versionKey: false }
 );

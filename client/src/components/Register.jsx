@@ -50,13 +50,15 @@ function calculateBilling(passTier, selectedEventIds) {
 
 export default function Register({ cart, removeFromCart, showToast }) {
   const [busy, setBusy] = useState(false);
+  
+  // New state to track if user is on the payment step
+  const [isPaymentStep, setIsPaymentStep] = useState(false);
 
   const [formValues, setFormValues] = useState({
     firstName: '',
     lastName: '',
     email: '',
     institute: '',
-    course: '',
     phoneNumber: '',
     passTier: PASS_TIER.CUSTOMIZED
   });
@@ -90,6 +92,16 @@ export default function Register({ cart, removeFromCart, showToast }) {
     .filter(Boolean);
 
   const billing = calculateBilling(formValues.passTier, selectedEventIds);
+  
+  // Boolean to easily check if payment is needed
+  const requiresPayment = billing.payable > 0;
+
+  // Reset payment step if the cart becomes free
+  useEffect(() => {
+    if (!requiresPayment) {
+      setIsPaymentStep(false);
+    }
+  }, [requiresPayment]);
 
   const updateField = (field, value) => {
     setFormValues((prev) => ({ ...prev, [field]: value }));
@@ -110,20 +122,33 @@ export default function Register({ cart, removeFromCart, showToast }) {
     if (cartMatch) removeFromCart(eventId);
   };
 
-  const submitForm = async () => {
-    const requiredFields = ['firstName', 'lastName', 'email', 'institute', 'course', 'phoneNumber'];
+  // Extracted validation logic so both buttons can use it
+  const validateBasicDetails = () => {
+    const requiredFields = ['firstName', 'lastName', 'email', 'institute', 'phoneNumber'];
     const missing = requiredFields.find((field) => !formValues[field]?.trim());
     if (missing) {
       showToast('Please fill all required registration fields.');
-      return;
+      return false;
     }
 
     if (selectedEventIds.length === 0) {
       showToast('Please select at least one event.');
-      return;
+      return false;
     }
+    return true;
+  };
 
-    if (!paymentSSFile) {
+  const handleProceedToPayment = () => {
+    if (validateBasicDetails()) {
+      setIsPaymentStep(true);
+    }
+  };
+
+  const submitForm = async () => {
+    if (!validateBasicDetails()) return;
+
+    // Only require screenshot if there is an amount to pay
+    if (requiresPayment && !paymentSSFile) {
       showToast('Please upload your payment screenshot.');
       return;
     }
@@ -136,7 +161,6 @@ export default function Register({ cart, removeFromCart, showToast }) {
       payload.append('lastName', formValues.lastName.trim());
       payload.append('email', formValues.email.trim());
       payload.append('institute', formValues.institute.trim());
-      payload.append('course', formValues.course.trim());
       payload.append('phoneNumber', formValues.phoneNumber.trim());
       payload.append('passTier', formValues.passTier);
       payload.append('eventsApplied', selectedEvents.map((eventItem) => eventItem.title).join(','));
@@ -161,13 +185,13 @@ export default function Register({ cart, removeFromCart, showToast }) {
         lastName: '',
         email: '',
         institute: '',
-        course: '',
         phoneNumber: '',
         passTier: PASS_TIER.CUSTOMIZED
       });
       setSelectedEventIds([]);
       setEventToAdd('');
       setPaymentSSFile(null);
+      setIsPaymentStep(false);
     } catch (error) {
       showToast(error?.message || 'Unable to submit registration right now.');
     } finally {
@@ -204,7 +228,6 @@ export default function Register({ cart, removeFromCart, showToast }) {
           </div>
           <div className="form-row">
             <input className="inp" type="text" placeholder="Institute" value={formValues.institute} onChange={(event) => updateField('institute', event.target.value)} />
-            <input className="inp" type="text" placeholder="Course" value={formValues.course} onChange={(event) => updateField('course', event.target.value)} />
           </div>
 
           <div className="reg-pass-wrap">
@@ -265,29 +288,42 @@ export default function Register({ cart, removeFromCart, showToast }) {
             <div className="reg-billing-row total"><span>Payable Amount</span><strong>INR {billing.payable.toLocaleString('en-IN')}</strong></div>
           </div>
 
-          <div style={{ marginBottom: '14px' }}>
-            <input
-              className="inp"
-              type="file"
-              accept="image/*"
-              onChange={(event) => setPaymentSSFile(event.target.files?.[0] || null)}
-            />
-            <p className="reg-note" style={{ marginTop: '8px' }}>Upload payment screenshot (required for verification).</p>
-          </div>
+          {/* Conditionally render QR and Screenshot only if payment is required AND user clicked Proceed to Payment */}
+          {requiresPayment && isPaymentStep && (
+            <>
+              <div style={{ marginBottom: '14px' }}>
+                <input
+                  className="inp"
+                  type="file"
+                  accept="image/*"
+                  onChange={(event) => setPaymentSSFile(event.target.files?.[0] || null)}
+                />
+                <p className="reg-note" style={{ marginTop: '8px' }}>Upload payment screenshot (required for verification).</p>
+              </div>
+              
+              <div className="reg-payment-block">
+                <div className="reg-payment-copy">
+                  <div className="reg-payment-label">Pay via UPI</div>
+                  <p className="reg-payment-desc">Pay exactly the payable amount shown above. Mention your name and selected pass in payment note.</p>
+                </div>
+                <div className="reg-qr-box" id="paymentQrWrap" title="Payment QR">
+                  <img src={paymentSSImg} alt="Payment Asset" style={{ width: '128px', height: '128px', objectFit: 'cover' }} />
+                </div>
+              </div>
+            </>
+          )}
           
-          <div className="reg-payment-block">
-            <div className="reg-payment-copy">
-              <div className="reg-payment-label">Pay via UPI</div>
-              <p className="reg-payment-desc">Pay exactly the payable amount shown above. Mention your name and selected pass in payment note.</p>
-            </div>
-            <div className="reg-qr-box" id="paymentQrWrap" title="Payment QR">
-              <img src={paymentSSImg} alt="Payment Asset" style={{ width: '128px', height: '128px', objectFit: 'cover' }} />
-            </div>
-          </div>
+          {/* Conditional Button Rendering */}
+          {requiresPayment && !isPaymentStep ? (
+            <button className="btn-submit" onClick={handleProceedToPayment}>
+              Proceed to Payment →
+            </button>
+          ) : (
+            <button className="btn-submit" onClick={submitForm} disabled={busy}>
+              {busy ? 'Submitting Registration...' : 'Register for VENTURERS 2026 →'}
+            </button>
+          )}
           
-          <button className="btn-submit" onClick={submitForm} disabled={busy}>
-            {busy ? 'Submitting Registration...' : 'Register for VENTURERS 2026 →'}
-          </button>
         </div>
       </div>
     </section>

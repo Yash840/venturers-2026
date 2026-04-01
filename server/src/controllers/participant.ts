@@ -5,17 +5,17 @@ import { PassTier } from '../types/enums';
 import { getNextSequence } from '../utils/nextSequence';
 
 export const registerParticipant = async (req: Request, res: Response) => {
-    const { email, firstName, lastName, institute, course, phoneNumber, passTier, eventsApplied, billingAmount, paymentSSLink } = req.body;
+    // 1. ADD paymentSSLink back into the destructuring from req.body
+    const { email, firstName, lastName, institute, phoneNumber, passTier, eventsApplied, billingAmount, paymentSSLink } = req.body;
 
     try {
         const normalizedEmail = typeof email === 'string' ? email.trim().toLowerCase() : '';
         const normalizedFirstName = typeof firstName === 'string' ? firstName.trim() : '';
         const normalizedLastName = typeof lastName === 'string' ? lastName.trim() : '';
         const normalizedInstitute = typeof institute === 'string' ? institute.trim() : '';
-        const normalizedCourse = typeof course === 'string' ? course.trim() : '';
         const normalizedPhoneNumber = typeof phoneNumber === 'string' ? phoneNumber.trim() : '';
 
-        if (!normalizedEmail || !normalizedFirstName || !normalizedLastName || !normalizedInstitute || !normalizedCourse || !normalizedPhoneNumber) {
+        if (!normalizedEmail || !normalizedFirstName || !normalizedLastName || !normalizedInstitute || !normalizedPhoneNumber) {
             return res.status(400).json({ error: 'Missing required registration fields.' });
         }
 
@@ -38,7 +38,14 @@ export const registerParticipant = async (req: Request, res: Response) => {
             return res.status(400).json({ error: 'Invalid billing amount.' });
         }
 
-        const normalizedPaymentSSLink = typeof paymentSSLink === 'string' ? paymentSSLink : '';
+        // 2. NEW CLOUDINARY LOGIC
+        // Grab the Cloudinary URL that your `uploadImage` middleware injected into req.body
+        let normalizedPaymentSSLink = typeof paymentSSLink === 'string' ? paymentSSLink : '';
+        
+        // Enforce that paid passes must have a screenshot URL
+        if (normalizedBillingAmount > 0 && !normalizedPaymentSSLink) {
+            return res.status(400).json({ error: 'Payment screenshot is required for paid passes.' });
+        }
 
         const id = await getNextSequence('Participant');
         const newParticipant = await Participant.create({
@@ -47,13 +54,13 @@ export const registerParticipant = async (req: Request, res: Response) => {
             firstName: normalizedFirstName,
             lastName: normalizedLastName,
             institute: normalizedInstitute,
-            course: normalizedCourse,
             phoneNumber: normalizedPhoneNumber,
             passTier,
             eventsApplied: normalizedEventsApplied,
             billingAmount: normalizedBillingAmount,
-            paymentSSLink: normalizedPaymentSSLink,
+            paymentSSLink: normalizedPaymentSSLink, // 3. Save the Cloudinary URL to MongoDB
         });
+        
         return res.status(201).json(newParticipant);
     } catch (error) {
         if (error instanceof MongoServerError && error.code === 11000) {

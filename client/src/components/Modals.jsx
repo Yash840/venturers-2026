@@ -5,9 +5,9 @@ const modalsData = {
     id: 'sharktank', badge: 'Flagship Event', day: 'Day 1 — Apr 10', title: 'Shark Tank', 
     meta: [
       { i: <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>, text: '1–4 members' },
-      { i: <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>, text: 'Reg: ₹100' }
+      { i: <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>, text: 'Reg: ₹99' }
     ],
-    prizeTitle: 'Prize Money', prizes: [{ name: '🏆 Shark\'s Choice Award', amount: '₹700 + Trophy' }],
+    prizeTitle: 'Prize Money', prizes: [{ name: '🏆 Shark\'s Choice Award', amount: 'Trophy + Prize Money' }],
     content: (
       <>
         <p>The <strong>Shark Tank</strong> event is a live startup pitching experience where student teams pitch their venture ideas to a panel of <strong>3–4 Sharks</strong> — real entrepreneurs, investors, and industry leaders.</p>
@@ -28,7 +28,7 @@ const modalsData = {
     meta: [
       { i: <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>, text: '3 rounds' },
       { i: <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>, text: '2–4 members' },
-      { i: <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>, text: 'Reg: ₹200' }
+      { i: <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>, text: 'Reg: ₹199' }
     ],
     prizeTitle: 'Prize Money — Total ₹5,000', prizes: [{ name: '🥇 1st Place', amount: '₹2,500' }, { name: '🥈 2nd Place', amount: '₹1,500' }, { name: '🥉 3rd Place', amount: '₹1,000' }],
     content: (
@@ -69,7 +69,7 @@ const modalsData = {
     id: 'gob', badge: 'Debate Competition', day: 'Day 2 — Apr 11', title: 'Game of Brands — The Brand War',
     meta: [
       { i: <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>, text: '3 members/team' },
-      { i: <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>, text: 'Reg: ₹150' }
+      { i: <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>, text: 'Reg: ₹149' }
     ],
     prizeTitle: 'Prize Money — Total ₹1,800', prizes: [{ name: '🥇 1st Place', amount: '₹800' }, { name: '🥈 2nd Place', amount: '₹600' }, { name: '🥉 3rd Place', amount: '₹400' }],
     content: (
@@ -97,7 +97,7 @@ const modalsData = {
     id: 'cric', badge: 'Strategy Game', day: 'Day 2 — Apr 11', title: 'Cric Auction',
     meta: [
       { i: <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>, text: 'Individual / Pairs' },
-      { i: <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>, text: 'Reg: ₹200' }
+      { i: <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>, text: 'Reg: ₹199' }
     ],
     prizeTitle: 'Prize Money', prizes: [{ name: '🏆 Winner', amount: '₹700' }],
     content: (
@@ -118,7 +118,7 @@ const modalsData = {
     meta: [
       { i: <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>, text: '2–3 members' },
       { i: <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/></svg>, text: 'Portfolio battle' },
-      { i: <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>, text: 'Reg: ₹150' }
+      { i: <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>, text: 'Reg: ₹149' }
     ],
     prizeTitle: 'Prize Money — Total ₹1,500', prizes: [{ name: '🥇 1st Place', amount: '₹700' }, { name: '🥈 2nd Place', amount: '₹500' }, { name: '🥉 3rd Place', amount: '₹300' }],
     content: (
@@ -189,12 +189,13 @@ export default function Modals({ activeModal, closeM, addToCart, cart, showToast
                     {m.prizes.map((p, i) => (
                       <div key={i} className="m-prize-row"><span>{p.name}</span><span>{p.amount}</span></div>
                     ))}
+                    <p className="m-prize-note">* Prize money is subject to number of participants.</p>
                   </div>
                 )}
                 {m.id === 'sharktank' && <p style={{ marginTop: '16px', fontSize: '12px', color: 'var(--grey)' }}>Evaluated on: Innovation · Feasibility · Scalability · Market Potential · Overall Impression</p>}
               </div>
               <div className="m-register-section">
-                <div className="m-register-title">Register for {m.title} — {m.id === 'guest' || m.id === 'chai' ? 'Free' : (m.id === 'sharktank' ? '₹100' : (m.id === 'zerotone' || m.id === 'cric' ? '₹200' : '₹150'))}</div>
+                <div className="m-register-title">Register for {m.title} — {m.id === 'guest' || m.id === 'chai' ? 'Free' : (m.id === 'sharktank' ? '₹99' : (m.id === 'zerotone' || m.id === 'cric' ? '₹199' : '₹149'))}</div>
                 
                 <div className="m-form-row">
                   {m.regFields ? m.regFields.slice(0, 2) : (

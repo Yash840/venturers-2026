@@ -4,12 +4,12 @@ import paymentSSImg from '../assets/payment_ss.jpeg';
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
 
 const EVENT_CATALOG = [
-  { id: 'sharktank', title: 'Shark Tank', fee: 100 },
-  { id: 'zerotone', title: 'Zero to One', fee: 200 },
+  { id: 'sharktank', title: 'Shark Tank', fee: 99 },
+  { id: 'zerotone', title: 'Zero to One', fee: 199 },
   { id: 'chai', title: 'Chai Pe Charcha!', fee: 0 },
-  { id: 'gob', title: 'Game of Brands', fee: 150 },
-  { id: 'cric', title: 'Cric Auction', fee: 200 },
-  { id: 'wallst', title: 'Wolf of Wall Street', fee: 150 },
+  { id: 'gob', title: 'Game of Brands', fee: 149 },
+  { id: 'cric', title: 'Cric Auction', fee: 199 },
+  { id: 'wallst', title: 'Wolf of Wall Street', fee: 149 },
   { id: 'guest', title: 'Speaker Session', fee: 0 }
 ];
 
